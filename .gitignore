@@ -487,9 +487,9 @@ pyvenv.cfg
 pip-selfcheck.json
 
 # chroma
-/chroma_db
+/backend/chroma_db
 
 # API key
-API.txt
+backend/API.txt
 
 # End of https://www.toptal.com/developers/gitignore/api/python,intellij,intellij+all,pycharm,pycharm+all,venv

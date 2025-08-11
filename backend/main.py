@@ -85,7 +85,7 @@ def main():
     retriever = RAG()
     generator = Generator()
 
-    query = "show me a person in the tavern drinking something"
+    query = "show me the weather outside of the tavern"
 
     # preprocess query
     translated, code = translate_query(query)
