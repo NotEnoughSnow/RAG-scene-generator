@@ -20,6 +20,19 @@ def call_LLM(prompt, query):
 
     return response.choices[0].message.content
 
+def translate_query(query):
+
+    with open("translation_prompt.txt", "r") as f:
+        translation_prompt = f.read().strip()
+    translated = call_LLM(query=query, prompt=translation_prompt)
+
+    if translated.strip().upper().startswith("OUT-OF-SCOPE:"):
+        # Out of scope detected, use 422 Unprocessable Entity
+        return translated, 422
+    else:
+        # Valid translation, 200 OK
+        return translated, 200
+
 def call_LLM_output(context):
 
     with open("output_prompt.txt", "r", encoding='utf-8') as f:
@@ -42,7 +55,7 @@ def generate_outputs(context, max_retries=3):
             sd_prompt = parts[1].strip()
             return description, sd_prompt
         else:
-            # Clarify the LLM about format and ask to retry
+            print("warning: malformed output, retrying")
             pass
 
     # After retries exhausted, fallback
@@ -72,12 +85,22 @@ def main():
     retriever = RAG()
     generator = Generator()
 
-    query = "show me the tavern bar ?"
+    query = "show me a person in the tavern drinking something"
 
     # preprocess query
+    translated, code = translate_query(query)
+
+    if code == 422:
+        print("Query out of scope, skipping retrieval and image generation.")
+        print("Assistant response:", translated)
+
+        # Optionally, generate a fallback image or use a default description/prompt
+        fallback_description = translated
+        fallback_image = ...
+        return
 
     # retrieve context
-    full_context = retriever.answer_question(query)
+    full_context = retriever.answer_question(translated)
 
     output_description, SD_prompt = generate_outputs(full_context)
 
