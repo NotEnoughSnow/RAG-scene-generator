@@ -8,6 +8,7 @@ with open("API.txt", "r") as f:
 CLIENT = OpenAI(api_key=api_key, base_url="https://api.deepseek.com")
 
 
+# TODO handle key not set
 def call_LLM(prompt, query):
     response = CLIENT.chat.completions.create(
         model="deepseek-chat",
@@ -100,7 +101,7 @@ def main():
         return
 
     # retrieve context
-    full_context = retriever.answer_question(translated)
+    full_context = retriever.answer_question(query=translated, original_question=query)
 
     output_description, SD_prompt = generate_outputs(full_context)
 

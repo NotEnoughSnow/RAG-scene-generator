@@ -12,6 +12,13 @@ import re
 LORE_LOCATION = "./scene"
 DB_DIR = "./chroma_db"
 
+# TODO incorperate this in class below and use as part of error/exception fallback
+def dummy_rag(prompt: str) -> str:
+    return (
+        "In the age of ember-born dragons, the crystal city of Altheria floated "
+        "above silver clouds, sustained by ancient runes and the songs of sky-magi."
+    )
+
 class RAG:
 
     def __init__(self):
@@ -119,8 +126,8 @@ class RAG:
     def get_chunks_by_filename(self, filename):
         return self.collection.get(where={"source": filename})
 
-    def answer_question(self, question, top_k=3):
-        question_embedding = self.model.encode([question]).tolist()
+    def answer_question(self, query, original_question, top_k=3):
+        question_embedding = self.model.encode([query]).tolist()
         # Get top-k results
         results = self.collection.query(
             query_embeddings=question_embedding,
@@ -169,6 +176,8 @@ class RAG:
         context_parts.append("** Referenced files:\n")
         for fname, content in linked_chunks.items():
             context_parts.append(f"**** Contents of attached file {fname}:\n{content.strip()}\n")
+        context_parts.append(f"* Original Question: {original_question}\n")
+
 
         full_context = "".join(context_parts)
 

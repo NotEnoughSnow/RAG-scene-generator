@@ -490,6 +490,9 @@ pip-selfcheck.json
 /backend/chroma_db
 
 # API key
-backend/API.txt
+/backend/API.txt
+
+# output folder
+/backend/outputs
 
 # End of https://www.toptal.com/developers/gitignore/api/python,intellij,intellij+all,pycharm,pycharm+all,venv
