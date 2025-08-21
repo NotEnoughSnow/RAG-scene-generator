@@ -52,7 +52,9 @@ npm run dev
 
 ## Project Structure
 /frontend → Next.js (UI, rendering images + text)
+
 /backend → FastAPI (API routes, RAG pipeline, LLM + SD integration)
+
 /backend/scenes → Markdown scene files used for retrieval
 
 ## Screenshots
@@ -61,8 +63,11 @@ npm run dev
 
 ## Limitations
 **Quality inconsistency**: While output descriptions and images describe a relevant scene, the generated image quality is rather inconsistent.
+
 **Limited scenes and angles**: Despite the scene being a toy example, the amount of details required to generate different angles from the scene consistently is overwhelming for both SD and the LLM. Future ideas will focus on consistency with this limitation in mind.
-**Deployment**: While the app runs locally, there’s no CI/CD pipeline or production hosting configured.  
+
+**Deployment**: While the app runs locally, there’s no CI/CD pipeline or production hosting configured. 
+
 **Model/computation constraints**: Only SD1.5 is currently supported due to the high computational requirements of SDXL and Flux. Future cloud implementations will improve generated image quality.
 
 ## Future Development
