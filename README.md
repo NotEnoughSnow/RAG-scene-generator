@@ -1,6 +1,6 @@
 # Scene-to-Image Generation Platform
 
-An interactive web application that retrieves **scene context** from markdown files, generates a **natural language description** and a **Stable Diffusion prompt** using an LLM (DeepSeek), and then produces an **AI-generated image** with Stable Diffusion (SD1.5 / SDXL + custom LoRAs).
+An interactive web application that retrieves **scene context** from markdown files, generates a **natural language description** and a **Stable Diffusion prompt** using an LLM (DeepSeek), and then produces an **AI-generated image** with Stable Diffusion (SD1.5).
 
 This project demonstrates the integration of **RAG, LLMs, and generative image models** in a full-stack environment, with attention to UX design and extensibility.
 
