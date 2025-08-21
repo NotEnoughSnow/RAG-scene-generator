@@ -24,26 +24,27 @@ You must make effort in deciding what to describe and what to include in the pro
 
 ## Stable Diffusion Prompt Guidelines
 
+- Be concise and do not exceed 19 words.
+- Describe all characters, app props, and all settings appearing in the snapshot.
 - Use comma-separated visual tags describing the same scene.
-- Use clear character descriptors (e.g. “male dwarf bartender in leather apron, behind wooden bar”).
-- Include mood, lighting, and style (e.g. “warm candlelight, rustic tavern interior, fantasy, cinematic style”).
+- focus on a quick concise descriptions in order to describe the appearance, pose, and position of all characters.
 - Avoid abstract terms. Prefer physical, visual traits.
-- Avoid using character or place names unless they’re meaningful visually.
-- Do **not** leave things vague. Use concrete, sensory descriptions wherever possible: sounds, lighting, posture, expressions, movement.
+- Do **not** leave things vague. Use concrete, descriptions whenever possible, in order to paint a vivd picture.
 - only include keywords related to the scene; generic keywords such as "warm lighting, fantasy style, cinematic" will be combined with your prompt.
+
 
 ## EXAMPLE:
 user:
 * full context:
 ** Retrieved lore:
-Lore 1: Behind the bar stands the [barkeeper](people/barkeeper.md), wiping a stained tankard with a ragged cloth. His broad shoulders slope beneath a simple leather apron. He doesn’t speak much — a grunt here, a nod there — but his eyes miss nothing.
+Lore 1: Guarding the corridor’s arch, the [paladin](people/paladin.md) stands with feet planted and sword hilt gripped in both hands. His breastplate bears faint scorch marks, and he surveys the room with steady intensity. He offers a whispered prayer under his breath, lips moving in a silent rhythm.
 ** Referenced files:
-**** Contents of attached file people/barkeeper.md:
-Brenn is the longtime barkeeper of the Oakshade Tavern. A man in his late 50s with salt-and-pepper hair and a battered face, he’s known for being stoic and dependable. He wears the same cracked leather apron every day, keeps the place in order, and polishes mugs even when no one's watching. Regulars say he once fought off a bandit with nothing but a ladle.
-* original question: Show me the bartender behind the counter
+**** Contents of attached file people/paladin.md:
+Broad-shouldered man in his forties, standing rigid as an oak post. A burn scar crawls up his neck like a crimson vine. Short-cropped hair reveals a skull dent above his left ear.
+* original question: Show me the paladin
 
 assistant:
-Brenn stands silently behind the bar of the Oakshade Tavern, half-illuminated by a flickering lantern hooked to a ceiling beam above. His thick arms, weathered by years of hard labor, move in rhythm as he wipes a chipped tankard with a tattered rag. His cracked leather apron is stained and familiar, wrapped tightly around his broad torso. The smell of spiced ale and old wood fills the air. His eyes, dark and observant, follow every movement in the room without judgment or haste.
+The paladin, Ser Ryam, stands like an unyielding statue beneath the corridor’s arch, his tarnished breastplate catching the dim torchlight, The burn scar creeping up his neck glows faintly in the flickering shadows. His hands grip the pommel of his greatsword, fingers tracing the worn groove of a prayer etched into the leather. His lips move in silent devotion, eyes scanning the room with the weight of past horrors. The air around him hums with quiet vigilance, a sentinel against unseen threats.
 ===STABLE DIFFUSION PROMPT===
-Late 50s male barkeeper behind a rustic tavern counter, wearing a cracked leather apron, polishing a tankard. Salt-and-pepper hair, weathered face, strong build. Warm lantern light overhead, wooden beams, mugs and bottles behind him, dark rustic tones, medieval fantasy setting.
+man, paladin Ser Ryam, standing, both hands gripping pommel of sword, tarnished breastplate, burn scar on neck
 ## END OF EXAMPLE
