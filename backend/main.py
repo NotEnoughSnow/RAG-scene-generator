@@ -62,10 +62,19 @@ class HistoryItem(BaseModel):
 
 history: dict[str, HistoryItem] = {}
 
-def generate_image(generator, image_prompt, filename: str):
+def generate_image(generator: Generator, image_prompt: str, filename: str) -> str:
+    ''' Generate an image by calling Stable Diffusion and save it locally.
+
+    Args:
+        generator: An instance of the diffuser generator class.
+        image_prompt: The image prompt to generate.
+        filename: The name to save the file to. Usually a UUID.
+
+    Returns:
+        The filename of the generated image. Used to retrieve the image later in frontend.
+    '''
     output_file = filename+".png"
     output_path = f"./outputs/{output_file}"
-    lora_file = "FantasyClassics.safetensors"
 
     with open("SD_keywords.txt", "r") as f:
         keywords = f.read().strip()
@@ -88,20 +97,38 @@ def generate_image(generator, image_prompt, filename: str):
 
     return output_file
 
-def translate_query(query):
+def translate_query(query: str) -> tuple[str, int]:
+    """Calls an LLM to translate the raw user question. 
+    The LLM will also validate the query by detecting if it is out of scope.
+
+    Args:
+        query: Raw user query.
+
+    Returns:
+        tuple of (translated_text, status_code) where code status is 200 if translation was successful, 422 if out of scope.
+    """
 
     with open("translation_prompt.txt", "r") as f:
         translation_prompt = f.read().strip()
     translated = deepseek_chat(user_prompt=query, base_prompt=translation_prompt)
 
     if translated.strip().upper().startswith("OUT-OF-SCOPE:"):
-        # Out of scope detected, use 422 Unprocessable Entity
+        # Out of scope detected
         return translated, 422
     else:
         # Valid translation, 200 OK
         return translated, 200
 
-def generate_outputs(rag_context, max_retries=3):
+def generate_outputs(rag_context: str, max_retries: int = 3) -> tuple[str, str | None]:
+    """Iteratively calls the LLM to generate a description for the scene and an image prompt.
+    
+    Args:
+        rag_context: The context retrieved from RAG.
+        max_retries: Maximum number of retries.
+    
+    Returns:
+        tuple of (description, image_prompt)
+    """
     with open("output_prompt.txt", "r", encoding='utf-8') as f:
         image_generator_prompt = f.read().strip()
 
@@ -130,7 +157,11 @@ def generate_outputs(rag_context, max_retries=3):
 
 
 @app.post("/chat", response_model=ChatResponse)
-async def chat(req: ChatRequest):
+async def chat(req: ChatRequest) -> ChatResponse:
+    """
+    Handle chat requests and provides a response to the frontend. Generates a response and an image based on the user's query.
+    
+    """
 
     description = ""
     image_url = ""
@@ -185,7 +216,8 @@ async def chat(req: ChatRequest):
     return ChatResponse(id=item_id, answer=description, image_url=image_url)
 
 @app.get("/history/{item_id}", response_model=HistoryItem)
-async def get_history_item(item_id: str):
+async def get_history_item(item_id: str) -> HistoryItem:
+    """Retrieve a specific chat history item by ID."""
     if item_id not in history:
         raise HTTPException(status_code=404, detail="Item not found")
     return history[item_id]

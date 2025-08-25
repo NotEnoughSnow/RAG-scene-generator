@@ -495,4 +495,7 @@ pip-selfcheck.json
 # output folder
 /backend/outputs
 
+# hide notebooks for now
+/notebooks
+
 # End of https://www.toptal.com/developers/gitignore/api/python,intellij,intellij+all,pycharm,pycharm+all,venv
